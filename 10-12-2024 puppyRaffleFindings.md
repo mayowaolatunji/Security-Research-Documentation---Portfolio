@@ -84,7 +84,7 @@ contract ReentrencyAttacker {
 - Checks-Effects-Interactions Pattern: Always follow the best practice of the checks-effects-interactions pattern, which involves checking conditions, updating state, and interacting with external contracts only after the state has been updated.
 
 
-## [H-2] Weak/Insecure Randomness in `PuppyRaffle::selectWinner` allows user to incluence or predict raffle  and/or winning puppy. 
+## [H-2] The Weak/Insecure Randomness in `PuppyRaffle::selectWinner` allows the user to include or predict the raffle  and/or winning puppy. 
 
 **Description:** Hashing `msg.sender`, `block.timestamp`, and `block.difficulty` produces random numbers and for the case of this raffle, it is considered Not Good.
 
@@ -144,7 +144,7 @@ myVar = myVar + 1
 
 ## Medium
 
-### [M-1] Looping through players' array to check for duplicates in `PuppyRaffle::enterRaffle` is a Potential DOS attack. (Root Cause + Impact)
+### [M-1] Looping through `players' array to check for duplicates in `PuppyRaffle::enterRaffle` is a Potential DOS attack.
 
 **Description:** The `PuppyRaffle::enterRaffle` function loops through the `players` array to check for duplicates. However, gas cost accumulates exponentially when new players make new checks. Every additional address in the `players` array is an additional check the loop will have to make.
 
@@ -156,7 +156,7 @@ An attacker might make the `PuppyRaffle::entrants` array to be so big, that no o
 
 If we have two sets of 100 players enter, the cost of gas will be such:
 
-- thegas cost of the first 100 players: 6252128
+- the gas cost of the first 100 players: 6252128
 - the gas cost of the Second 100 players: 18068218
 
 this is more than 3X more expensive for the 2nd 100 players.
@@ -212,7 +212,7 @@ Include the following test into `PuppyRaffleTest.t.sol`
 **Recommended Mitigation:** Recommendations include;
 - Consider allowing duplicates. Here, users can create unique wallets and enter the raffle multiple times.
 
-- Consider using mapping to check for duplicates. This would allow constant time lookup of whether a user has already entered.  
+- Consider using mapping to check for duplicates. This would allow a constant-time lookup of whether a user has already entered.  
 
 
 ### [M-2] Smart Contract wallet raffle winners without a receive or a fallback will block the start of a new contest.
